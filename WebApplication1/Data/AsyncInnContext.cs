@@ -37,5 +37,7 @@ namespace Lab12.Data
             modelBuilder.Entity<HotelRoom>().HasData(new HotelRoom
             { ID = 1, HotelID = 1, RoomID = 1, Price = 100.99});
         }
+
+        public DbSet<Lab12.Models.Hotel> Hotel { get; set; } = default!;
     }
 }
