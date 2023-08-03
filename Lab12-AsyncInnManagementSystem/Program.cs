@@ -1,3 +1,6 @@
+using Lab12_AsyncInnManagementSystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Lab12_AsyncInnManagementSystem
 {
     public class Program
@@ -10,12 +13,10 @@ namespace Lab12_AsyncInnManagementSystem
             builder.Services.AddControllersWithViews();
 
             //create data context
-            /*
             builder.Services.AddDbContext<AsyncInnContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration
                     .GetConnectionString("DefaultConnection")));
-            */
 
             var app = builder.Build();
 
