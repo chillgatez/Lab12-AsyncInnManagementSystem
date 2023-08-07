@@ -35,3 +35,32 @@ To get started with the Hotel Management System Web Application, follow these st
     - Create API controllers (HotelsController, RoomsController, AmenitiesController) using ASP.NET Web API controllers with actions.
     - Implement CRUD operations using Entity Framework for each entity type.
     - Use ThunderClient or similar tools to test and interact with the API routes.
+
+## Additional Refactoring (Assignment Update)
+
+As part of an assignment update, you will be implementing the Dependency Injection pattern and refactoring the architecture of your project.
+
+### Repository Design Pattern and Dependency Injection
+
+To enhance the architecture of your project, you will be implementing the Repository Design Pattern along with Dependency Injection. This will involve the following steps:
+
+**Interface Refactoring:**
+
+- Build an interface for each of the controllers (IHotelRepository, IRoomRepository, IAmenityRepository) that contains the required method signatures for CRUD operations to the database directly.
+
+**Controller Refactoring:**
+
+- Update each of the controllers (HotelController, RoomController, AmenityController) to depend on their respective interface instead of directly using the DbContext.
+
+**Service Implementation:**
+
+- Create a service for each of the controllers that implements the appropriate interface (HotelRepository, RoomRepository, AmenityRepository).
+- Build out the logic in each service to satisfy the interface by making the appropriate calls to the database for each CRUD action.
+
+**Controller Logic Update:**
+
+- Update the logic in your controllers to use the appropriate methods from the respective interface rather than directly interacting with the DbContext.
+
+**Testing and Verification:**
+
+- Use ThunderClient or similar tools to test and interact with the API routes.
