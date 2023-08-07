@@ -12,7 +12,7 @@ namespace Lab12_AsyncInnManagementSystem
             //Add services  to the container
             builder.Services.AddControllersWithViews();
 
-            //create data context
+            //create database context
             builder.Services.AddDbContext<AsyncInnContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration

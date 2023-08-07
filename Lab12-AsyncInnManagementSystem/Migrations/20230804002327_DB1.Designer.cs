@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab12_AsyncInnManagementSystem.Migrations
 {
     [DbContext(typeof(AsyncInnContext))]
-    [Migration("20230803025841_DB1")]
+    [Migration("20230804002327_DB1")]
     partial class DB1
     {
         /// <inheritdoc />
