@@ -22,6 +22,10 @@ namespace Lab12_AsyncInnManagementSystem
 
             builder.Services.AddTransient<IHotel, HotelService>();
 
+            builder.Services.AddTransient<IRoom, RoomService>();
+
+            builder.Services.AddTransient<IAmenity, AmenityService>();
+
             var app = builder.Build();
 
            app.UseHttpsRedirection();
