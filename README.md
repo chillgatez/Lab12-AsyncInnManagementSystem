@@ -54,7 +54,7 @@ To enhance the architecture of your project, you will be implementing the Reposi
 
 **Service Implementation:**
 
-- Create a service for each of the controllers that implements the appropriate interface (HotelRepository, RoomRepository, AmenityRepository).
+- Create a service for each of the controllers that implements the appropriate interface (Hotel, Room, Amenity).
 - Build out the logic in each service to satisfy the interface by making the appropriate calls to the database for each CRUD action.
 
 **Controller Logic Update:**
