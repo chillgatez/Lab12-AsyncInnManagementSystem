@@ -22,19 +22,16 @@ To get started with the Hotel Management System Web Application, follow these st
 1. Create a new Empty .NET Core Web Application:
   - Set up explicit routing for API controllers in the Configure method.
   - Configure your appsettings.json file to include your database connection string.
-
 1. Model and Database Setup:
   - Create models (Hotel, Room, Amenity) representing the entities from the ERD.
   - Implement an AsyncInnDbContext class deriving from DbContext, including constructor and database properties.
   - Register the DbContext in the startup file.
   - Generate migration scripts using EF Core tools:
   - Create and apply a migration for the Hotels, Rooms, and Amenities tables.
-  - 
 1. Seeding Data:
   - Override the OnModelCreating method in AsyncInnDbContext to seed default data.
   - Seed data for all three entity types (3 hotels, 3 rooms, 3 amenities).
   - Create a migration to include the seeded data and apply it to the database.
-
 1.API Routes:
   - Create API controllers (HotelsController, RoomsController, AmenitiesController) using ASP.NET Web API controllers with actions.
   - Implement CRUD operations using Entity Framework for each entity type.
