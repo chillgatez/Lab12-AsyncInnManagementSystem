@@ -10,58 +10,57 @@ using Lab12_AsyncInnManagementSystem.Models;
 
 namespace Lab12_AsyncInnManagementSystem.Controllers
 {
-    //https://https://localhost:7280/api/Amenities
     [Route("api/[controller]")]
     [ApiController]
-    public class AmenitiesController : ControllerBase
+    public class RoomsController : ControllerBase
     {
         private readonly AsyncInnContext _context;
 
-        public AmenitiesController(AsyncInnContext context)
+        public RoomsController(AsyncInnContext context)
         {
             _context = context;
         }
 
-        // GET: api/Amenities
+        // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
-          if (_context.Amenity == null)
+          if (_context.Room == null)
           {
               return NotFound();
           }
-            return await _context.Amenity.ToListAsync();
+            return await _context.Room.ToListAsync();
         }
 
-        // GET: api/Amenities/5
+        // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenity>> GetAmenity(int id)
+        public async Task<ActionResult<Room>> GetRoom(int id)
         {
-          if (_context.Amenity == null)
+          if (_context.Room == null)
           {
               return NotFound();
           }
-            var amenity = await _context.Amenity.FindAsync(id);
+            var room = await _context.Room.FindAsync(id);
 
-            if (amenity == null)
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return amenity;
+            return room;
         }
 
-        // PUT: api/Amenities/5
+        // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAmenity(int id, Amenity amenity)
+        public async Task<IActionResult> PutRoom(int id, Room room)
         {
-            if (id != amenity.ID)
+            if (id != room.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(amenity).State = EntityState.Modified;
+            _context.Entry(room).State = EntityState.Modified;
 
             try
             {
@@ -69,7 +68,7 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AmenityExists(id))
+                if (!RoomExists(id))
                 {
                     return NotFound();
                 }
@@ -82,44 +81,44 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
             return NoContent();
         }
 
-        // POST: api/Amenities
+        // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
+        public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-          if (_context.Amenity == null)
+          if (_context.Room == null)
           {
-              return Problem("Entity set 'AsyncInnContext.Amenity'  is null.");
+              return Problem("Entity set 'AsyncInnContext.Room'  is null.");
           }
-            _context.Amenity.Add(amenity);
+            _context.Room.Add(room);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAmenity", new { id = amenity.ID }, amenity);
+            return CreatedAtAction("GetRoom", new { id = room.ID }, room);
         }
 
-        // DELETE: api/Amenities/5
+        // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAmenity(int id)
+        public async Task<IActionResult> DeleteRoom(int id)
         {
-            if (_context.Amenity == null)
+            if (_context.Room == null)
             {
                 return NotFound();
             }
-            var amenity = await _context.Amenity.FindAsync(id);
-            if (amenity == null)
+            var room = await _context.Room.FindAsync(id);
+            if (room == null)
             {
                 return NotFound();
             }
 
-            _context.Amenity.Remove(amenity);
+            _context.Room.Remove(room);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AmenityExists(int id)
+        private bool RoomExists(int id)
         {
-            return (_context.Amenity?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Room?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
