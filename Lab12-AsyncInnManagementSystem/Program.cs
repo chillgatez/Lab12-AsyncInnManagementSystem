@@ -1,5 +1,7 @@
 using Lab12_AsyncInnManagementSystem.Data;
+using Lab12_AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Lab12_AsyncInnManagementSystem.Models.Services;
 
 namespace Lab12_AsyncInnManagementSystem
 {
@@ -17,6 +19,8 @@ namespace Lab12_AsyncInnManagementSystem
                 options.UseSqlServer(
                     builder.Configuration
                     .GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddTransient<IHotel, HotelService>();
 
             var app = builder.Build();
 
