@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models;
+using Lab12_AsyncInnManagementSystem.Models.Interfaces;
+using Lab12_AsyncInnManagementSystem.Models.Services;
 
 namespace Lab12_AsyncInnManagementSystem.Controllers
 {
@@ -14,22 +16,18 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        private readonly AsyncInnContext _context;
+        private readonly IRoom _room;
 
-        public RoomsController(AsyncInnContext context)
+        public RoomsController(IRoom room)
         {
-            _context = context;
+            _room = room;
         }
 
         // GET: api/Rooms
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
-          if (_context.Room == null)
-          {
-              return NotFound();
-          }
-            return await _context.Room.ToListAsync();
+            return await _room.GetRooms();
         }
 
         // GET: api/Rooms/5
