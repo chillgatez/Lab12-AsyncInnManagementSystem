@@ -8,11 +8,11 @@ In the hospitality industry, efficient management of hotels, rooms, and amenitie
 ## ERD Diagram
 Below is the Entity-Relationship Diagram (ERD) representing the structure of the database:
 
-[Async Inn ERD]!()
+![Async Inn ERD](https://github.com/chillgatez/Lab12-AsyncInnManagementSystem/blob/Kelsee-Lab11/async-inn-erd.png?raw=true)
 
 
 The ERD showcases the relationships between the entities in the system:
 
-**Hotel**: Represents a hotel with various attributes such as name, address, and phone number.
-**Room**: Describes individual rooms within hotels, including attributes like room number, layout type, and rate.
-**Amenity**: Encompasses amenities offered by the hotels, such as Wi-Fi, TV, and air conditioning.
+**Hotel**: Represents a hotel with various attributes such as name, address, and phone number.  
+**Room**: Describes individual rooms within hotels, including attributes like room number, layout type, and rate.  
+**Amenity**: Encompasses amenities offered by the hotels, such as Wi-Fi, TV, and air conditioning.  
