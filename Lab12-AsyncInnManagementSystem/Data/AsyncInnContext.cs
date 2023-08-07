@@ -20,23 +20,44 @@ namespace Lab12_AsyncInnManagementSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //information tables
-            modelBuilder.Entity<Amenity>().HasData(new Amenity
-            { ID = 1, Name = "A/C" });
-            modelBuilder.Entity<Room>().HasData(new Room
-            { ID = 1, Layout = 0, Name = "Basic Room" },
-            new Room
-            { ID = 2, Layout = 1, Name = "Basic Single Room" },
-            new Room
-            { ID = 3, Layout = 2, Name = "Basic Double Room" });
-            modelBuilder.Entity<Hotel>().HasData(new Hotel
-            {
-                ID = 1,
-                Address = "123 Sesame St",
-                City = "Memphis",
-                State = "TN",
-                Name = "Elmo's Hotel",
-                Phone = "555-555-5555"
-            });
+            modelBuilder.Entity<Amenity>().HasData(
+                new Amenity { ID = 1, Name = "A/C" },
+                new Amenity { ID = 2, Name = "Iron"},
+                new Amenity { ID = 3, Name = "Microwave"});
+
+            modelBuilder.Entity<Room>().HasData(
+                new Room { ID = 1, Layout = 0, Name = "Basic Room" },
+                new Room { ID = 2, Layout = 1, Name = "Basic Single Room" },
+                new Room { ID = 3, Layout = 2, Name = "Basic Double Room" });
+            
+            modelBuilder.Entity<Hotel>().HasData(
+                new Hotel
+                {
+                    ID = 1,
+                    Address = "123 Sesame St",
+                    City = "Memphis",
+                    State = "TN",
+                    Name = "Elmo's Hotel",
+                    Phone = "555-555-5555"
+                },
+                new Hotel
+                {
+                    ID = 2,
+                    Address = "456 Pickup Sticks Ln",
+                    City = "Memphis",
+                    State = "TN",
+                    Name = "Ya Mama's Inn",
+                    Phone = "444-444-4444"
+                },
+                new Hotel
+                {
+                    ID = 3,
+                    Address = "789 Kitty Cat Cr",
+                    City = "Atlanta",
+                    State = "GA",
+                    Name = "Kitten's Bed & Breakfast",
+                    Phone = "101-010-1010"
+                });
 
             //reference tables
             modelBuilder.Entity<RoomAmenity>().HasData(new RoomAmenity

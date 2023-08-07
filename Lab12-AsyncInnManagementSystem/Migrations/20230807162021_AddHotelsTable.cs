@@ -7,7 +7,7 @@
 namespace Lab12_AsyncInnManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class DB1 : Migration
+    public partial class AddHotelsTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -88,12 +88,22 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
             migrationBuilder.InsertData(
                 table: "Amenity",
                 columns: new[] { "ID", "Name" },
-                values: new object[] { 1, "A/C" });
+                values: new object[,]
+                {
+                    { 1, "A/C" },
+                    { 2, "Iron" },
+                    { 3, "Microwave" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Hotel",
                 columns: new[] { "ID", "Address", "City", "Name", "Phone", "State" },
-                values: new object[] { 1, "123 Sesame St", "Memphis", "Elmo's Hotel", "555-555-5555", "TN" });
+                values: new object[,]
+                {
+                    { 1, "123 Sesame St", "Memphis", "Elmo's Hotel", "555-555-5555", "TN" },
+                    { 2, "456 Pickup Sticks Ln", "Memphis", "Ya Mama's Inn", "444-444-4444", "TN" },
+                    { 3, "789 Kitty Cat Cr", "Atlanta", "Kitten's Bed & Breakfast", "101-010-1010", "GA" }
+                });
 
             migrationBuilder.InsertData(
                 table: "HotelRoom",

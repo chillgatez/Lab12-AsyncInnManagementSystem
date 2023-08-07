@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab12_AsyncInnManagementSystem.Migrations
 {
     [DbContext(typeof(AsyncInnContext))]
-    [Migration("20230804002327_DB1")]
-    partial class DB1
+    [Migration("20230807162021_AddHotelsTable")]
+    partial class AddHotelsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,16 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
                         {
                             ID = 1,
                             Name = "A/C"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Iron"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Microwave"
                         });
                 });
 
@@ -89,6 +99,24 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
                             Name = "Elmo's Hotel",
                             Phone = "555-555-5555",
                             State = "TN"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Address = "456 Pickup Sticks Ln",
+                            City = "Memphis",
+                            Name = "Ya Mama's Inn",
+                            Phone = "444-444-4444",
+                            State = "TN"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Address = "789 Kitty Cat Cr",
+                            City = "Atlanta",
+                            Name = "Kitten's Bed & Breakfast",
+                            Phone = "101-010-1010",
+                            State = "GA"
                         });
                 });
 
