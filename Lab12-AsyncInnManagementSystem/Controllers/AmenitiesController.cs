@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models;
+using Lab12_AsyncInnManagementSystem.Models.Interfaces;
+using Lab12_AsyncInnManagementSystem.Models.Services;
 
 namespace Lab12_AsyncInnManagementSystem.Controllers
 {
@@ -15,44 +17,28 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        private readonly AsyncInnContext _context;
+        private readonly IAmenity _amenity;
 
-        public AmenitiesController(AsyncInnContext context)
+        public AmenitiesController(IAmenity amenity)
         {
-            _context = context;
+            _amenity = amenity;
         }
 
         // GET: api/Amenities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
         {
-          if (_context.Amenity == null)
-          {
-              return NotFound();
-          }
-            return await _context.Amenity.ToListAsync();
+            return await _amenity.GetAmenities();
         }
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Amenity>> GetAmenity(int id)
         {
-          if (_context.Amenity == null)
-          {
-              return NotFound();
-          }
-            var amenity = await _context.Amenity.FindAsync(id);
-
-            if (amenity == null)
-            {
-                return NotFound();
-            }
-
-            return amenity;
+            return await _amenity.GetAmenity(id);
         }
 
         // PUT: api/Amenities/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAmenity(int id, Amenity amenity)
         {
@@ -61,65 +47,26 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(amenity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AmenityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await _amenity.PutAmenity(id, amenity);
         }
 
         // POST: api/Amenities
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
         {
-          if (_context.Amenity == null)
-          {
-              return Problem("Entity set 'AsyncInnContext.Amenity'  is null.");
-          }
-            _context.Amenity.Add(amenity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAmenity", new { id = amenity.ID }, amenity);
+            return await _amenity.PostAmenity(amenity);
         }
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmenity(int id)
         {
-            if (_context.Amenity == null)
-            {
-                return NotFound();
-            }
-            var amenity = await _context.Amenity.FindAsync(id);
-            if (amenity == null)
-            {
-                return NotFound();
-            }
-
-            _context.Amenity.Remove(amenity);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _amenity.DeleteAmenity(id);
         }
 
         private bool AmenityExists(int id)
         {
-            return (_context.Amenity?.Any(e => e.ID == id)).GetValueOrDefault();
+            return _amenity.AmenityExists(id);
         }
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models;
+using Lab12_AsyncInnManagementSystem.Models.Interfaces;
+using Lab12_AsyncInnManagementSystem.Models.Services;
 
 namespace Lab12_AsyncInnManagementSystem.Controllers
 {
@@ -17,48 +19,27 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
     public class HotelsController : ControllerBase
     {
         private readonly AsyncInnContext _context;
+        private IHotel _hotel;
 
-        public HotelsController(AsyncInnContext context)
+        public HotelsController(AsyncInnContext context, IHotel hotel)
         {
             _context = context;
+            _hotel = hotel;
         }
 
         // GET: api/Hotels
         [HttpGet]
-        //Async function of Task of ActionResults of IEnumerable of type Hotel
-        //IEnumberable deals with lists
-        //ActionResults return data or anything you can interact with on the web
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotel()
         {
-            //checking if DB Context is returning null
-          if (_context.Hotel == null)
-          {
-              return NotFound();
-          }
-
-        //return await _context.Hotel.Where(h=> h.City == "Memphis").ToListAsync();
-        //would return hotels from memphis
-        //returns lost of Hotels
-            return await _context.Hotel.ToListAsync();
+            return await _hotel.GetHotel();
         }
 
-        //returns a single record
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-          if (_context.Hotel == null)
-          {
-              return NotFound();
-          }
-            var hotel = await _context.Hotel.FindAsync(id);
 
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
-            return hotel;
+            return await _hotel.GetHotel(id);
         }
 
         // PUT: api/Hotels/5
@@ -70,24 +51,7 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(hotel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _hotel.PutHotel(id, hotel);
 
             return NoContent();
         }
@@ -97,12 +61,7 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-          if (_context.Hotel == null)
-          {
-              return Problem("Entity set 'AsyncInnContext.Hotel'  is null.");
-          }
-            _context.Hotel.Add(hotel);
-            await _context.SaveChangesAsync();
+            await _hotel.PostHotel(hotel);
 
             return CreatedAtAction("GetHotel", new { id = hotel.ID }, hotel);
         }
@@ -111,25 +70,13 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
-            if (_context.Hotel == null)
-            {
-                return NotFound();
-            }
-            var hotel = await _context.Hotel.FindAsync(id);
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
-            _context.Hotel.Remove(hotel);
-            await _context.SaveChangesAsync();
-
+            await _hotel.DeleteHotel(id);
             return NoContent();
         }
 
         private bool HotelExists(int id)
         {
-            return (_context.Hotel?.Any(e => e.ID == id)).GetValueOrDefault();
+            return _hotel.HotelExists(id);
         }
     }
 }
