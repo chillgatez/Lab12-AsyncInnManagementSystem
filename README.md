@@ -14,4 +14,4 @@ Below is the Entity-Relationship Diagram (ERD) representing the structure of the
 The ERD showcases the relationships between the entities in the system:
 - **Hotel**: Represents a hotel with various attributes such as name, address, and phone number.  
 - **Room**: Describes individual rooms within hotels, including attributes like room number, layout type, and rate.  
-- **Amenity**: Encompasses amenities offered by the hotels, such as Wi-Fi, TV, and air conditioning.  
+- **Amenity**: Encompasses amenities offered by the hotels, such as Wi-Fi, microwave, and air conditioning.  
