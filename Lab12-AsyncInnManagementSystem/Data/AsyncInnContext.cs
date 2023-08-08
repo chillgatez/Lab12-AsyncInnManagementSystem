@@ -6,11 +6,11 @@ namespace Lab12_AsyncInnManagementSystem.Data
     public class AsyncInnContext: DbContext 
     {
         //class should have singular name, object instantiation should be plural for readability
-        public DbSet<Amenity> Amenities;
-        public DbSet<RoomAmenity> RoomAmenities;
-        public DbSet<Room> Rooms;
-        public DbSet<HotelRoom> HotelRooms;
-        public DbSet<Hotel> Hotels;
+        public DbSet<Amenity> Amenities { get; set; } = default!;
+        public DbSet<RoomAmenity> RoomAmenities { get; set; } = default!;
+        public DbSet<Room> Rooms { get; set; } = default!;
+        public DbSet<HotelRoom> HotelRooms { get; set; } = default!;
+        public DbSet<Hotel> Hotels { get; set; } = default!;
 
         public AsyncInnContext(DbContextOptions<AsyncInnContext> options) : base(options)
         {
@@ -71,6 +71,10 @@ namespace Lab12_AsyncInnManagementSystem.Data
         public DbSet<Lab12_AsyncInnManagementSystem.Models.Amenity> Amenity { get; set; } = default!;
 
         public DbSet<Lab12_AsyncInnManagementSystem.Models.Room> Room { get; set; } = default!;
+
+        public DbSet<Lab12_AsyncInnManagementSystem.Models.HotelRoom> HotelRoom { get; set; } = default!;
+
+        public DbSet<Lab12_AsyncInnManagementSystem.Models.RoomAmenity> RoomAmenity { get; set; } = default!;
 
     }
 }

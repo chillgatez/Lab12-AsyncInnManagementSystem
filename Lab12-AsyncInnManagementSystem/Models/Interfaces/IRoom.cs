@@ -16,6 +16,10 @@ namespace Lab12_AsyncInnManagementSystem.Models.Interfaces
 
         public Task<IActionResult> DeleteRoom(int id);
 
+        public Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId);
+
+        public Task<IActionResult> RemoveAmenityFromRoom(int roomId, int amenityId);
+
         public bool RoomExists(int id);
     }
 }

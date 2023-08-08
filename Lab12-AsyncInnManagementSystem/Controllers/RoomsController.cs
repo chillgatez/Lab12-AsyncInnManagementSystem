@@ -63,6 +63,20 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
             return await _room.DeleteRoom(id);
         }
 
+        // POST: api/Rooms/5/Amenity/3 (Add Amenity with ID 3 to Room with ID 5)
+        [HttpPost("{roomId}/Amenity/{amenityId}")]
+        public async Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId)
+        {
+            return await _room.AddAmenityToRoom(roomId, amenityId);
+        }
+
+        // DELETE: api/Rooms/5/Amenity/3 (Remove Amenity with ID 3 from Room with ID 5)
+        [HttpDelete("{roomId}/Amenity/{amenityId}")]
+        public async Task<IActionResult> RemoveAmenityFromRoom(int roomId, int amenityId)
+        {
+            return await _room.RemoveAmenityFromRoom(roomId, amenityId);
+        }
+
         private bool RoomExists(int id)
         {
             return _room.RoomExists(id);

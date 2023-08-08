@@ -2,6 +2,7 @@
 using Lab12_AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -72,6 +73,43 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
                     throw;
                 }
             }
+
+            return new NoContentResult();
+        }
+
+        public async Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId)
+        {
+            var room = await _context.Room.FindAsync(roomId);
+            if (room == null)
+            {
+                return new NotFoundResult();
+            }
+
+            var amenity = await _context.Amenity.FindAsync(amenityId);
+            if (amenity == null)
+            {
+                return new NotFoundResult();
+            }
+
+            var newRA = new RoomAmenity { AmenityID = amenityId, RoomID = roomId };
+            _context.RoomAmenities.Add(newRA);
+            await _context.SaveChangesAsync();
+
+            return new NoContentResult();
+        }
+
+        public async Task<IActionResult> RemoveAmenityFromRoom(int roomId, int amenityId)
+        {
+            var roomAmenity = await _context.RoomAmenity
+                .FirstOrDefaultAsync(ra => ra.RoomID == roomId && ra.AmenityID == amenityId);
+
+            if (roomAmenity == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _context.RoomAmenity.Remove(roomAmenity);
+            await _context.SaveChangesAsync();
 
             return new NoContentResult();
         }
