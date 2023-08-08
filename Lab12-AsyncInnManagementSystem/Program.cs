@@ -10,9 +10,13 @@ namespace Lab12_AsyncInnManagementSystem
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
             //Add services  to the container
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.ReferenceHandler
+                        = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                });
 
             //create database context
             builder.Services.AddDbContext<AsyncInnContext>(options =>
@@ -25,6 +29,8 @@ namespace Lab12_AsyncInnManagementSystem
             builder.Services.AddTransient<IRoom, RoomService>();
 
             builder.Services.AddTransient<IAmenity, AmenityService>();
+
+            //builder.Services.AddTransient<IHotelRoom, HotelRoomService>();
 
             var app = builder.Build();
 
