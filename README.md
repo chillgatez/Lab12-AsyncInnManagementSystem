@@ -46,7 +46,7 @@ To enhance the architecture of your project, you will be implementing the Reposi
 
 **Interface Refactoring:**
 
-- Build an interface for each of the controllers (IHotelRepository, IRoomRepository, IAmenityRepository) that contains the required method signatures for CRUD operations to the database directly.
+- Build an interface for each of the controllers (IHotel, IRoom, IAmenity) that contains the required method signatures for CRUD operations to the database directly.
 
 **Controller Refactoring:**
 
