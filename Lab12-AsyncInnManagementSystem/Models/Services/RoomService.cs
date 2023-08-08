@@ -32,9 +32,14 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
             return new NoContentResult();
         }
 
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
-            return await _context.Room.ToListAsync();
+            return await _context.Room
+                .Include(r => r.HotelRooms)
+                .ThenInclude(hr => hr.Hotel)
+                .Include(r => r.RoomAmenities)
+                .ThenInclude(ra => ra.Amenity)
+                .ToListAsync();
         }
 
         public async Task<ActionResult<Room>> GetRoom(int id)

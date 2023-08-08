@@ -6,7 +6,7 @@ namespace Lab12_AsyncInnManagementSystem.Models.Interfaces
 {
     public interface IRoom
     {
-        public Task<ActionResult<IEnumerable<Room>>> GetRooms();
+        public Task<ActionResult<IEnumerable<Room>>> GetRoom();
 
         public Task<ActionResult<Room>> GetRoom(int id);
 

@@ -27,7 +27,7 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
-            return await _room.GetRooms();
+            return await _room.GetRoom();
         }
 
         // GET: api/Rooms/5

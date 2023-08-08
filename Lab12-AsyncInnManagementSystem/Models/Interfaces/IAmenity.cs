@@ -6,7 +6,7 @@ namespace Lab12_AsyncInnManagementSystem.Models.Interfaces
 {
     public interface IAmenity
     {
-        public Task<ActionResult<IEnumerable<Amenity>>> GetAmenities();
+        public Task<ActionResult<IEnumerable<Amenity>>> GetAmenity();
 
         public Task<ActionResult<Amenity>> GetAmenity(int id);
 

@@ -31,7 +31,7 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
             return new NoContentResult();
         }
 
-        public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenities()
+        public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
         {
             return await _context.Amenity.ToListAsync();
         }

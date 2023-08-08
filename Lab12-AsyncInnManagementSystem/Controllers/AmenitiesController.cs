@@ -28,7 +28,7 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
         {
-            return await _amenity.GetAmenities();
+            return await _amenity.GetAmenity();
         }
 
         // GET: api/Amenities/5
