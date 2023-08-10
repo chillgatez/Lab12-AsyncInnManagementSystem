@@ -60,10 +60,22 @@ namespace Lab12_AsyncInnManagementSystem.Data
                 });
 
             //reference tables
-            modelBuilder.Entity<RoomAmenity>().HasData(new RoomAmenity
-            { ID = 1, AmenityID = 1, RoomID = 1 });
-            modelBuilder.Entity<HotelRoom>().HasData(new HotelRoom
-            { ID = 1, HotelID = 1, RoomID = 1, Price = 100.99 });
+            modelBuilder.Entity<RoomAmenity>().HasData(
+                new RoomAmenity { ID = 1, AmenityID = 1, RoomID = 1 },
+                new RoomAmenity { ID = 5, AmenityID = 3, RoomID = 1 },
+                new RoomAmenity { ID = 7, AmenityID = 1, RoomID = 2 },
+                new RoomAmenity { ID = 3, AmenityID = 2, RoomID = 2 },
+                new RoomAmenity { ID = 4, AmenityID = 3, RoomID = 3 },
+                new RoomAmenity { ID = 6, AmenityID = 4, RoomID = 3 }
+                );
+            modelBuilder.Entity<HotelRoom>().HasData(
+                new HotelRoom { ID = 1, HotelID = 1, RoomID = 1, RoomNumber = 101, Price = 100.99 },
+                new HotelRoom { ID = 2, HotelID = 1, RoomID = 2, RoomNumber = 201, Price = 149.99 },
+                new HotelRoom { ID = 3, HotelID = 2, RoomID = 1, RoomNumber = 102, Price = 69.99 },
+                new HotelRoom { ID = 4, HotelID = 2, RoomID = 3, RoomNumber = 301, Price = 169.99 },
+                new HotelRoom { ID = 5, HotelID = 3, RoomID = 2, RoomNumber = 202, Price = 99.99 },
+                new HotelRoom { ID = 6, HotelID = 3, RoomID = 3, RoomNumber = 302, Price = 159.99 }
+                );
         }
 
         public DbSet<Lab12_AsyncInnManagementSystem.Models.Hotel> Hotel { get; set; } = default!;
@@ -78,3 +90,6 @@ namespace Lab12_AsyncInnManagementSystem.Data
 
     }
 }
+
+
+

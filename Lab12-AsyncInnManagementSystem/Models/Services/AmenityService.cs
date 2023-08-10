@@ -33,15 +33,16 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
 
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
         {
-            return await _context.Amenity.ToListAsync();
+            return await _context.Amenity
+                .Include(a => a.RoomAmenities)
+                .ToListAsync();
         }
 
         public async Task<ActionResult<Amenity>> GetAmenity(int id)
         {
             return await _context.Amenity
                 .Include(a => a.RoomAmenities)
-                .ThenInclude(ra => ra.Room)
-                .FirstOrDefaultAsync(a => a.ID == id);
+                .FirstOrDefaultAsync(i => i.ID == id);
         }
 
         public bool AmenityExists(int id)

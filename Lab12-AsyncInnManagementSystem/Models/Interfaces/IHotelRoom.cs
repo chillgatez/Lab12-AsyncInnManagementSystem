@@ -1,20 +1,19 @@
-﻿/*using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Lab12_AsyncInnManagementSystem.Models.Interfaces
 {
     public interface IHotelRoom
     {
-        public Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRoom();
+        Task<IEnumerable<HotelRoom>> GetHotelRoom(int hotelID);
 
-        public Task<ActionResult<HotelRoom>> GetHotelRoom(int id);
+        Task<HotelRoom> GetHotelRoom(int hotelId, int roomId);
 
-        public Task<IActionResult> PutHotelRoom(int id, HotelRoom hotelRoom);
+        Task<HotelRoom> PutHotelRoom(int hotelId, int roomId, HotelRoom hotelRoom);
 
-        public Task<ActionResult<HotelRoom>> PostHotelRoom(HotelRoom hotelRoom);
+        Task<HotelRoom> PostHotelRoom(HotelRoom hotelRoom);
 
-        public Task<IActionResult> DeleteHotelRoom(int id);
+        Task<HotelRoom> DeleteHotelRoom(int hotelId, int roomId);
 
-        public bool HotelRoomExists(int id);
+        bool HotelRoomExists(int hotelId, int roomId);
     }
 }
-*/

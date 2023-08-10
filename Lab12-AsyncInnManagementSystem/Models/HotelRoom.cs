@@ -8,10 +8,13 @@ namespace Lab12_AsyncInnManagementSystem.Models
         public int ID { get; set; }
 
         [Required]
+        public int HotelID { get; set; }
+
+        [Required]
         public int RoomID { get; set; }
 
         [Required]
-        public int HotelID { get; set; }
+        public int RoomNumber { get; set; }
 
         [Required]
         public double Price { get; set; }

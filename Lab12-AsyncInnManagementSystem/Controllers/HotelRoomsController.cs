@@ -1,5 +1,6 @@
 ﻿using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models;
+using Lab12_AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,100 +10,82 @@ using System.Threading.Tasks;
 
 namespace Lab12_AsyncInnManagementSystem.Controllers
 {
-    //https://localhost:7280/api/HotelRooms
-    [Route("api/[controller]")]
+    [Route("api/Hotels/{hotelId}/Rooms")]
     [ApiController]
     public class HotelRoomsController : ControllerBase
     {
-        private readonly AsyncInnContext _context;
+        private readonly IHotelRoom _hotelRoomService;
 
-        public HotelRoomsController(AsyncInnContext context)
+        public HotelRoomsController(IHotelRoom hotelRoomService)
         {
-            _context = context;
+            _hotelRoomService = hotelRoomService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRoom()
+        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRoom(int hotelId)
         {
-            return await _context.HotelRoom
-                .Include(hr => hr.Room)
-                .ToListAsync();
+            var hotelRooms = await _hotelRoomService.GetHotelRoom(hotelId);
+            return Ok(hotelRooms);
         }
 
-        [HttpGet("{hotelId}/{roomId}")]
+        [HttpGet("{roomId}")]
         public async Task<ActionResult<HotelRoom>> GetHotelRoom(int hotelId, int roomId)
         {
-            var hotelRoom = await _context.HotelRoom
-                .Include(hr => hr.Room)
-                .Include(hr => hr.Hotel)
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
-
+            var hotelRoom = await _hotelRoomService.GetHotelRoom(hotelId, roomId);
             if (hotelRoom == null)
             {
                 return NotFound();
             }
-
-            return hotelRoom;
+            return Ok(hotelRoom);
         }
 
-        [HttpPut("{hotelId}/{roomId}")]
+        [HttpPut("{roomId}")]
         public async Task<IActionResult> PutHotelRoom(int hotelId, int roomId, HotelRoom hotelRoom)
         {
-            if (hotelId != hotelRoom.HotelID || roomId != hotelRoom.RoomID)
+            if (roomId != hotelRoom.RoomID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hotelRoom).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var updatedHotelRoom = await _hotelRoomService.PutHotelRoom(hotelId, roomId, hotelRoom);
+                return Ok(updatedHotelRoom);
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelRoomExists(hotelId, roomId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<HotelRoom>> PostHotelRoom(HotelRoom hotelRoom)
-        {
-            _context.HotelRoom.Add(hotelRoom);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHotelRoom", new { hotelId = hotelRoom.HotelID, roomId = hotelRoom.RoomID }, hotelRoom);
-        }
-
-        [HttpDelete("{hotelId}/{roomId}")]
-        public async Task<IActionResult> DeleteHotelRoom(int hotelId, int roomId)
-        {
-            var hotelRoom = await _context.HotelRoom
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
-
-            if (hotelRoom == null)
+            catch (ArgumentException)
             {
                 return NotFound();
             }
+        }
 
-            _context.HotelRoom.Remove(hotelRoom);
-            await _context.SaveChangesAsync();
+        [HttpPost]
+        public async Task<ActionResult<HotelRoom>> PostHotelRoom(int hotelId, HotelRoom hotelRoom)
+        {
+            if (hotelId != hotelRoom.HotelID)
+            {
+                return BadRequest();
+            }
 
-            return NoContent();
+            var createdHotelRoom = await _hotelRoomService.PostHotelRoom(hotelRoom);
+            return CreatedAtAction(nameof(GetHotelRoom), new { hotelId, roomId = createdHotelRoom.RoomID }, createdHotelRoom);
+        }
+
+        [HttpDelete("{roomId}")]
+        public async Task<IActionResult> DeleteHotelRoom(int hotelId, int roomId)
+        {
+            var deletedRoom = await _hotelRoomService.DeleteHotelRoom(hotelId, roomId);
+
+            if (deletedRoom != null)
+            {
+                return NoContent();
+            }
+
+            return NotFound();
         }
 
         private bool HotelRoomExists(int hotelId, int roomId)
         {
-            return _context.HotelRoom.Any(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
+            return _hotelRoomService.HotelRoomExists(hotelId, roomId);
         }
     }
 }

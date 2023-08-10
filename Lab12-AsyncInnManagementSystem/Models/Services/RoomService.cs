@@ -44,7 +44,12 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
 
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            return await _context.Room.FindAsync(id);
+            return await _context.Room
+                .Include(r => r.HotelRooms)
+                .ThenInclude(hr => hr.Hotel)
+                .Include(r => r.RoomAmenities)
+                .ThenInclude(ra => ra.Amenity)
+                .FirstOrDefaultAsync(i => i.ID == id);
         }
 
         public bool RoomExists(int id)

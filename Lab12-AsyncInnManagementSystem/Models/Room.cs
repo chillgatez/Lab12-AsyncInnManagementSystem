@@ -13,8 +13,9 @@ namespace Lab12_AsyncInnManagementSystem.Models
         [Required]
         public int Layout { get; set; }
 
+        public List<RoomAmenity> RoomAmenities { get; set; }
+
         public List<HotelRoom> HotelRooms { get; set; }
 
-        public List<RoomAmenity> RoomAmenities { get; set; }
     }
 }

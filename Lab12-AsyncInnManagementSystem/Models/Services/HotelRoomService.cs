@@ -1,4 +1,4 @@
-﻿/*using Lab12_AsyncInnManagementSystem.Data;
+﻿using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,81 +17,75 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
             _context = context;
         }
 
-        public async Task<IActionResult> DeleteHotelRoom(int roomId, int hotelId)
+        public async Task<IEnumerable<HotelRoom>> GetHotelRoom(int hotelID)
+        {
+            var hotelRooms = await _context.HotelRoom
+                .Include(hr => hr.Room)
+                .ThenInclude(r => r.Name)
+                .Where(hr => hr.HotelID == hotelID)
+                .ToListAsync();
+            return hotelRooms;
+        }
+
+        public async Task<HotelRoom> GetHotelRoom(int hotelId, int roomId)
         {
             var hotelRoom = await _context.HotelRoom
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
-
-            if (hotelRoom == null)
-            {
-                return new NotFoundResult();
-            }
-
-            _context.HotelRoom.Remove(hotelRoom);
-            await _context.SaveChangesAsync();
-
-            return new NoContentResult();
-        }
-
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRoom(int hotelId)
-        {
-            return await _context.HotelRoom
-                .Include(hr => hr.Room)
-                .Where(hr => hr.HotelID == hotelId)
-                .ToListAsync();
-        }
-
-        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int roomId, int hotelId)
-        {
-            var hotelRoom =  await _context.HotelRoom
                 .Include(hr => hr.Room)
                 .Include(hr => hr.Hotel)
-                .FirstOrDefaultAsync(hr => hr.RoomID == roomId);
-
-            if (hotelRoom == null)
-            {
-                return new NotFoundResult();
-            }
-
+                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
             return hotelRoom;
         }
 
-        public bool HotelRoomExists(int roomId, int hotelId)
+        public async Task<HotelRoom> PutHotelRoom(int hotelId, int roomId, HotelRoom hotelRoom)
         {
-            return _context.HotelRoom.Any(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
+            if (hotelId != hotelRoom.HotelID || roomId != hotelRoom.RoomID)
+            {
+                throw new ArgumentException("Hotel ID or Room ID mismatch.");
+            }
+
+            _context.Entry(hotelRoom).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return hotelRoom;
         }
 
-        public async Task<ActionResult<HotelRoom>> PostHotelRoom(HotelRoom hotelRoom)
+        public async Task<HotelRoom> PostHotelRoom(HotelRoom hotelRoom)
         {
             _context.HotelRoom.Add(hotelRoom);
             await _context.SaveChangesAsync();
             return hotelRoom;
         }
 
-        public async Task<IActionResult> PutHotelRoom(int roomId, int hotelId, HotelRoom hotelRoom)
+        public async Task<HotelRoom> DeleteHotelRoom(int hotelId, int roomId)
         {
-            _context.Entry(hotelRoom).State = EntityState.Modified;
+            var hotelRoom = await _context.HotelRoom
+                .FirstOrDefaultAsync(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
 
-            try
+            if (hotelRoom == null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelRoomExists(roomId, hotelId)) 
-                {
-                    return new NotFoundResult();
-                }
-                else
-                { 
-                    throw;
-                }
+                return null;
             }
 
-            return new NoContentResult();
+            _context.HotelRoom.Remove(hotelRoom);
+            await _context.SaveChangesAsync();
+            return hotelRoom;
         }
 
-    }
+        public bool HotelRoomExists(int roomId, int hotelId)
+        {
+            var roomExists = _context.HotelRoom.Any(hr => hr.RoomID == roomId && hr.HotelID == hotelId);
 
+            if (!roomExists)
+            {
+                // Check if the room exists in the Room table
+                var roomExistsInDatabase = _context.Room.Any(r => r.ID == roomId);
+
+                if (!roomExistsInDatabase)
+                {
+                    return false;
+                }
+            }
+
+            return roomExists;
+        }
+    }
 }
-*/

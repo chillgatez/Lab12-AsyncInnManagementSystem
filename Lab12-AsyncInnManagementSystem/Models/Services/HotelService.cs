@@ -2,8 +2,7 @@
 using Lab12_AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace Lab12_AsyncInnManagementSystem.Models.Services
 {
@@ -29,7 +28,9 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
         //Get all hotels
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotel()
         {
-            return await _context.Hotel.ToListAsync();
+            return await _context.Hotel
+                .Include(r => r.HotelRooms)
+                .ToListAsync();
         }
 
         public async Task<ActionResult<Hotel>> GetHotel(int id)
