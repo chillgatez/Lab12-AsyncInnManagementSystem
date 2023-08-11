@@ -12,7 +12,7 @@ namespace Lab12_AsyncInnManagementSystem.Models
         [Required]
         public string Name { get; set; }
 
-        public List<RoomAmenity> RoomAmenities { get; set; }
+        public List<RoomAmenity>? RoomAmenities { get; set; }
 
     }
 }

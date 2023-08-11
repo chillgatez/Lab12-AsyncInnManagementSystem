@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -121,4 +121,4 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
             return (_context.RoomAmenities?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
-}
+}*/

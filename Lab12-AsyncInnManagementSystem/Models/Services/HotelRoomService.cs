@@ -20,11 +20,17 @@ namespace Lab12_AsyncInnManagementSystem.Models.Services
         public async Task<IEnumerable<HotelRoom>> GetHotelRoom(int hotelID)
         {
             var hotelRooms = await _context.HotelRoom
-                .Include(hr => hr.Room)
-                .ThenInclude(r => r.Name)
-                .Where(hr => hr.HotelID == hotelID)
-                .ToListAsync();
-            return hotelRooms;
+                 .Include(hr => hr.Room)
+                 .ThenInclude(r => r.Name)
+                 .Where(hr => hr.HotelID == hotelID)
+                 .ToListAsync();
+             return hotelRooms;
+
+            /*if (_context.HotelRooms == null)
+            {
+                return NotFound;
+            }
+            return await _context.HotelRooms.ToListAsync();*/
         }
 
         public async Task<HotelRoom> GetHotelRoom(int hotelId, int roomId)
