@@ -2,6 +2,7 @@ using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Lab12_AsyncInnManagementSystem.Models.Services;
+using Microsoft.OpenApi.Models;
 
 namespace Lab12_AsyncInnManagementSystem
 {
@@ -13,7 +14,8 @@ namespace Lab12_AsyncInnManagementSystem
 
             //Add services  to the container
             builder.Services.AddControllersWithViews()
-                .AddJsonOptions(options => {
+                .AddJsonOptions(options =>
+                {
                     options.JsonSerializerOptions.ReferenceHandler
                         = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
                 });
@@ -32,9 +34,19 @@ namespace Lab12_AsyncInnManagementSystem
 
             builder.Services.AddTransient<IHotelRoom, HotelRoomService>();
 
+            builder.Services.AddSwaggerGen(options =>
+            {
+                // Make sure get the "using Statement"
+                options.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Title = "Async Inn",
+                    Version = "v1",
+                });
+            });
+
             var app = builder.Build();
 
-           app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
@@ -45,6 +57,21 @@ namespace Lab12_AsyncInnManagementSystem
             app.MapControllerRoute(
                name: "default",
                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.UseSwagger(options => {
+                options.RouteTemplate = "/api/{documentName}/swagger.json";
+            });
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/api/v1/swagger.json", "Async Inn Hotel");
+                options.RoutePrefix = "docs";
+            });
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
 
             app.Run();
         }
