@@ -24,7 +24,7 @@ namespace Lab12_AsyncInnManagementSystem
             builder.Services.AddDbContext<AsyncInnContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration
-                    .GetConnectionString("DefaultConnection")));
+                    .GetConnectionString("LocalConnection")));
 
             builder.Services.AddTransient<IHotel, HotelService>();
 

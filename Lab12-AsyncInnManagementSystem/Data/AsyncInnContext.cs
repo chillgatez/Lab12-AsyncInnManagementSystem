@@ -63,10 +63,10 @@ namespace Lab12_AsyncInnManagementSystem.Data
             modelBuilder.Entity<RoomAmenity>().HasData(
                 new RoomAmenity { ID = 1, AmenityID = 1, RoomID = 1 },
                 new RoomAmenity { ID = 5, AmenityID = 3, RoomID = 1 },
-                new RoomAmenity { ID = 7, AmenityID = 1, RoomID = 2 },
+                new RoomAmenity { ID = 2, AmenityID = 1, RoomID = 2 },
                 new RoomAmenity { ID = 3, AmenityID = 2, RoomID = 2 },
                 new RoomAmenity { ID = 4, AmenityID = 3, RoomID = 3 },
-                new RoomAmenity { ID = 6, AmenityID = 4, RoomID = 3 }
+                new RoomAmenity { ID = 6, AmenityID = 2, RoomID = 3 }
                 );
             modelBuilder.Entity<HotelRoom>().HasData(
                 new HotelRoom { ID = 1, HotelID = 1, RoomID = 1, RoomNumber = 101, Price = 100.99 },
