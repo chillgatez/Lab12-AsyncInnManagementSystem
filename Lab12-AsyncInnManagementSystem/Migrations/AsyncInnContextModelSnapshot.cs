@@ -273,7 +273,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
                         },
                         new
                         {
-                            ID = 7,
+                            ID = 2,
                             AmenityID = 1,
                             RoomID = 2
                         },
@@ -292,7 +292,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
                         new
                         {
                             ID = 6,
-                            AmenityID = 4,
+                            AmenityID = 2,
                             RoomID = 3
                         });
                 });

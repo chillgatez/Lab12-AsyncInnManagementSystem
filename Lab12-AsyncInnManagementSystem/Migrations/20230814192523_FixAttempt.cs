@@ -7,7 +7,7 @@
 namespace Lab12_AsyncInnManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedAdditions : Migration
+    public partial class FixAttempt : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,11 +43,11 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
                 columns: new[] { "ID", "AmenityID", "RoomID" },
                 values: new object[,]
                 {
+                    { 2, 1, 2 },
                     { 3, 2, 2 },
                     { 4, 3, 3 },
                     { 5, 3, 1 },
-                    { 6, 4, 3 },
-                    { 7, 1, 2 }
+                    { 6, 2, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -166,6 +166,11 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
             migrationBuilder.DeleteData(
                 table: "RoomAmenity",
                 keyColumn: "ID",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "RoomAmenity",
+                keyColumn: "ID",
                 keyValue: 3);
 
             migrationBuilder.DeleteData(
@@ -182,11 +187,6 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
                 table: "RoomAmenity",
                 keyColumn: "ID",
                 keyValue: 6);
-
-            migrationBuilder.DeleteData(
-                table: "RoomAmenity",
-                keyColumn: "ID",
-                keyValue: 7);
 
             migrationBuilder.DropColumn(
                 name: "RoomNumber",
