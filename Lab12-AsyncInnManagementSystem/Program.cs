@@ -1,8 +1,11 @@
 using Lab12_AsyncInnManagementSystem.Data;
 using Lab12_AsyncInnManagementSystem.Models.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Lab12_AsyncInnManagementSystem.Models;
 using Lab12_AsyncInnManagementSystem.Models.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Lab12_AsyncInnManagementSystem
 {
@@ -44,6 +47,9 @@ namespace Lab12_AsyncInnManagementSystem
                 });
             });
 
+            builder.Services.AddIdentityCore<ApplicationUser>()
+                .AddEntityFrameworkStores<AsyncInnContext>();
+
             var app = builder.Build();
 
             app.UseHttpsRedirection();
@@ -72,6 +78,8 @@ namespace Lab12_AsyncInnManagementSystem
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
+
+            app.MapGet("/", () => "Hello World!");
 
             app.Run();
         }

@@ -35,7 +35,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Amenity");
+                    b.ToTable("Amenity", (string)null);
 
                     b.HasData(
                         new
@@ -85,7 +85,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Hotel");
+                    b.ToTable("Hotel", (string)null);
 
                     b.HasData(
                         new
@@ -143,7 +143,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
 
                     b.HasIndex("RoomID");
 
-                    b.ToTable("HotelRoom");
+                    b.ToTable("HotelRoom", (string)null);
 
                     b.HasData(
                         new
@@ -213,7 +213,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Room");
+                    b.ToTable("Room", (string)null);
 
                     b.HasData(
                         new
@@ -256,7 +256,7 @@ namespace Lab12_AsyncInnManagementSystem.Migrations
 
                     b.HasIndex("RoomID");
 
-                    b.ToTable("RoomAmenity");
+                    b.ToTable("RoomAmenity", (string)null);
 
                     b.HasData(
                         new
