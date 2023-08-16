@@ -52,6 +52,8 @@ namespace Lab12_AsyncInnManagementSystem
 
             var app = builder.Build();
 
+            app.MapGet("/", () => "Hello World!");
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
