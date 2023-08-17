@@ -24,19 +24,19 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
         // ROUTES
 
         [HttpPost("Register")]
-        public async Task<ActionResult<ApplicationUser>> Register(ApplicationUser data)
+        public async Task<ActionResult<ApplicationUser>> Register(ApplicationUser user)
         {
-            // Note: data (RegisterUser) comes from an inbound DTO/Model created for this purpose
+            // Note: user (RegisterUser) comes from an inbound DTO/Model created for this purpose
             // this.ModelState?  This comes from MVC Binding and shares an interface with the Model
-            //var user = await userService.Register(data, this.ModelState);
-            var user = new ApplicationUser
-            {
-                UserName = data.UserName,
-                Email = data.Email,
-                PhoneNumber = data.PhoneNumber
-            };
+            //var user = await userService.Register(user, this.ModelState);
+            //var user = new ApplicationUser
+            //{
+            //    UserName = user.UserName,
+            //    Email = user.Email,
+            //    PhoneNumber = user.PhoneNumber
+            //};
 
-            var result = await userManager.CreateAsync(user, data.Password);
+            var result = await userManager.CreateAsync(user, user.Password);
 
             if (result.Succeeded)
             {
@@ -51,9 +51,9 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
             foreach (var error in result.Errors)
             {
                 var errorKey =
-                    error.Code.Contains("Password") ? nameof(data.Password) :
-                    error.Code.Contains("Email") ? nameof(data.Email) :
-                    error.Code.Contains("UserName") ? nameof(data.UserName) :
+                    error.Code.Contains("Password") ? nameof(user.Password) :
+                    error.Code.Contains("Email") ? nameof(user.Email) :
+                    error.Code.Contains("UserName") ? nameof(user.UserName) :
                     "";
                 ModelState.AddModelError(errorKey, error.Description);
             }
@@ -72,15 +72,15 @@ namespace Lab12_AsyncInnManagementSystem.Controllers
         public async Task<ActionResult<ApplicationUser>> Login(ApplicationUser data)
         {
 
-            var user = await userManager.FindByNameAsync(data.Username);
+            var user = await userManager.FindByNameAsync(data.UserName);
 
             if (await userManager.CheckPasswordAsync(user, data.Password))
             {
 
                 return new ApplicationUser()
                 {
-                    Id = user.Id,
-                    Username = user.UserName,
+                    Id = user.Id
+                    //UserName = user.UserName,
                 };
             }
             if (user == null)

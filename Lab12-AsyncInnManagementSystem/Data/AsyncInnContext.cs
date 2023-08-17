@@ -11,6 +11,9 @@ namespace Lab12_AsyncInnManagementSystem.Data
         public DbSet<Room> Rooms { get; set; } = default!;
         public DbSet<HotelRoom> HotelRooms { get; set; } = default!;
         public DbSet<Hotel> Hotels { get; set; } = default!;
+        public DbSet<ApplicationUser> Users { get; set; } = default!;
+
+
 
         public AsyncInnContext(DbContextOptions<AsyncInnContext> options) : base(options)
         {
@@ -90,6 +93,8 @@ namespace Lab12_AsyncInnManagementSystem.Data
         public DbSet<Lab12_AsyncInnManagementSystem.Models.HotelRoom> HotelRoom { get; set; } = default!;
 
         public DbSet<Lab12_AsyncInnManagementSystem.Models.RoomAmenity> RoomAmenity { get; set; } = default!;
+
+        public DbSet<Lab12_AsyncInnManagementSystem.Models.ApplicationUser> User { get; set; } = default!;
 
     }
 }

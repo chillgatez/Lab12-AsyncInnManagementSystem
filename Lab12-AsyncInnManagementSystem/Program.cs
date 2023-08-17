@@ -81,8 +81,6 @@ namespace Lab12_AsyncInnManagementSystem
                 pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
 
-            app.MapGet("/", () => "Hello World!");
-
             app.Run();
         }
     }
